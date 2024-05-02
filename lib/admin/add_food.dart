@@ -67,7 +67,7 @@ class _AddFoodState extends State<AddFood> {
         namecontroller.text.isNotEmpty &&
         pricecontroller.text.isNotEmpty &&
         detailcontroller.text.isNotEmpty) {
-      String addId = randomAlphaNumeric(10);
+      String addId = randomAlphaNumeric(20);
 
       Reference firebaseStorageRef =
           FirebaseStorage.instance.ref().child("blogImages").child(addId);
