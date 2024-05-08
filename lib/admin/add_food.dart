@@ -33,67 +33,72 @@ class _AddFoodState extends State<AddFood> {
     }
   }
 
-  // uploadItem() async {
-  //   if (selectedImage != null &&
-  //       namecontroller.text != "" &&
-  //       pricecontroller != "" &&
-  //       detailcontroller != "") {
-  //     String addId = randomAlphaNumeric(10);
-
-  //     Reference firebaseStorageRef =
-  //         FirebaseStorage.instance.ref().child("blogImages").child(addId);
-  //     final UploadTask task = firebaseStorageRef.putFile(selectedImage!);
-  //     var downloadUrl = await (await task).ref.getDownloadURL();
-  //     Map<String, dynamic> addItem = {
-  //       "Image": downloadUrl,
-  //       "name": namecontroller,
-  //       "price": pricecontroller,
-  //       "detail": detailcontroller
-  //     };
-  //     await DatabaseMethods().addFoodItem(addItem, value!).then((value) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text(
-  //             "Food Item has been added succesfully",
-  //             style: TextStyle(fontSize: 20),
-  //           ),
-  //         ),
-  //       );
-  //     });
-  //   }
-  // }
-  Future<void> uploadItem() async {
+  uploadItem() async {
     if (selectedImage != null &&
-        namecontroller.text.isNotEmpty &&
-        pricecontroller.text.isNotEmpty &&
-        detailcontroller.text.isNotEmpty) {
-      String addId = randomAlphaNumeric(20);
+        namecontroller.text != "" &&
+        pricecontroller != "" &&
+        detailcontroller != "") {
+      String addId = randomAlphaNumeric(10);
 
       Reference firebaseStorageRef =
           FirebaseStorage.instance.ref().child("blogImages").child(addId);
-      UploadTask task = firebaseStorageRef.putFile(selectedImage!);
-      TaskSnapshot taskSnapshot = await task;
-
-      if (taskSnapshot.state == TaskState.success) {
-        String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-
-        Map<String, dynamic> addItem = {
-          "Image": downloadUrl,
-          "name": namecontroller.text,
-          "price": pricecontroller.text,
-          "detail": detailcontroller.text
-        };
-
-        // Now you can proceed to add the item to your database or perform any other necessary tasks.
-      } else {
-        // Handle the case where the upload task fails.
-        print("Upload failed");
-      }
-    } else {
-      // Handle the case where one or more required fields are empty.
-      print("Please fill in all fields and select an image");
+      final UploadTask task = firebaseStorageRef.putFile(selectedImage!);
+      var downloadUrl = await (await task).ref.getDownloadURL();
+      Map<String, dynamic> addItem = {
+        "Image": downloadUrl,
+        "name": namecontroller.text,
+        "price": pricecontroller.text,
+        "detail": detailcontroller.text
+      };
+      await DatabaseMethods().addFoodItem(addItem, value!).then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.black,
+            content: Text(
+              "Food Item has been added succesfully",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        );
+      });
     }
   }
+  // Future<void> uploadItem() async {
+  //   if (selectedImage != null &&
+  //       namecontroller.text.isNotEmpty &&
+  //       pricecontroller.text.isNotEmpty &&
+  //       detailcontroller.text.isNotEmpty) {
+  //     String addId = randomAlphaNumeric(20);
+
+  //     Reference firebaseStorageRef =
+  //         FirebaseStorage.instance.ref().child("blogImages").child(addId);
+  //     UploadTask task = firebaseStorageRef.putFile(selectedImage!);
+  //     TaskSnapshot taskSnapshot = await task;
+
+  //     if (taskSnapshot.state == TaskState.success) {
+  //       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+  //       Map<String, dynamic> addItem = {
+  //         "Image": downloadUrl,
+  //         "name": namecontroller.text,
+  //         "price": pricecontroller.text,
+  //         "detail": detailcontroller.text
+  //       };
+
+  //       // Now you can proceed to add the item to your database or perform any other necessary tasks.
+  //     } else {
+  //       // Handle the case where the upload task fails.
+  //       print("Upload failed");
+  //     }
+  //   } else {
+  //     // Handle the case where one or more required fields are empty.
+  //     print("Please fill in all fields and select an image");
+  //   }
+  // }
 
   String? value;
   final List<String> items = ['Ice-cream', 'Pizza', 'Salad', 'Burger'];

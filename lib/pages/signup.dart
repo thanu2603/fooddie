@@ -6,7 +6,10 @@ import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
 import "package:fooddie/pages/bottomnav.dart";
 import "package:fooddie/pages/login.dart";
+import "package:fooddie/service/database.dart";
+import "package:fooddie/service/shared_pref.dart";
 import "package:fooddie/widgets/widget_support.dart";
+import "package:random_string/random_string.dart";
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -36,6 +39,20 @@ class _SignUpState extends State<SignUp> {
             ),
           ),
         );
+
+        // ignore: non_constant_identifier_names
+        String Id = randomAlphaNumeric(20);
+        Map<String, dynamic> addUserInfo = {
+          "Name": namecontroller.text,
+          "Email": emailcontroller.text,
+          "Wallet": "0",
+          "Id": Id,
+        };
+        await DatabaseMethods().addUserDetail(addUserInfo, Id);
+        await SharedPreferenceHelper().saveUserName(namecontroller.text);
+        await SharedPreferenceHelper().saveUserEmail(emailcontroller.text);
+        await SharedPreferenceHelper().saveUserWallet('0');
+        await SharedPreferenceHelper().saveUserId(Id);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const BottomNav()));
       } on FirebaseException catch (e) {

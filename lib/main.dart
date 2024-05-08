@@ -6,10 +6,15 @@ import 'package:fooddie/admin/add_food.dart';
 import 'package:fooddie/admin/admin_login.dart';
 import 'package:fooddie/admin/home_admin.dart';
 import 'package:fooddie/pages/bottomnav.dart';
+import 'package:fooddie/pages/home.dart';
+//import 'package:fooddie/pages/bottomnav.dart';
 //import 'package:fooddie/pages/home.dart';
 //import 'package:fooddie/pages/login.dart';
 import 'package:fooddie/pages/onboard.dart';
+import 'package:fooddie/pages/order.dart';
+import 'package:fooddie/pages/profile.dart';
 import 'package:fooddie/pages/signup.dart';
+import 'package:fooddie/pages/wallet.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +36,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Fooddie',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -51,7 +56,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeAdmin(),
+      home: const Onboard(),
     );
   }
 }
